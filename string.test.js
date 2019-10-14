@@ -1,7 +1,10 @@
 describe("Strings", () => {
   it("Should join two strings with a space.", () => {
     // TODO: write 2 function with different way for join string
-
+    function combine1(s,s1){
+      
+      return s+s1;
+    }
     expect(combine1("hello", "world")).toBe("hello world");
     expect(combine2("hello", "world")).toBe("hello world");
   });

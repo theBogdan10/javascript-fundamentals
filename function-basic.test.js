@@ -1,20 +1,31 @@
 describe("Function basic", () => {
   it("Should be function declarations", () => {
-    expect(/* simpleFunction() */).toBe("I am a function declarations");
+    function foo(){};
+    expect(foo()).toBe("I am a function declarations");
   });
 
   it("Should be function expression", () => {
-    expect(/* functionExpression() */).toBe("I am a function expression");
+    let f=function qwe(){};
+    expect(f).toBe("I am a function expression");
   });
 
   it("Should get sum of 2 numbers", () => {
-    expect(/* sum(5, 7) */).toBe(12);
-    expect(/* sum(10, 1000) */).toBe(1010);
-    expect(/* sum(-10, 10) */).toBe(0);
+    function sum(a,b){
+      return a+b;
+    }
+    expect(sum(5, 7)).toBe(12);
+    expect(sum(10, 1000)).toBe(1010);
+    expect(sum(-10, 10)).toBe(0);
   });
 
   test("Should get arguments length", () => {
     // TODO: Declare 3 functions (withoutArguments, withOneArgument, withTwoArguments ) with different quantity of named arguments
+    function f1(){
+      
+    };
+    function f2(x);
+    function f3(y);
+
     expect(/* withoutArguments() */).toBe(0);
     expect(/* withOneArgument(1) */).toBe(1);
     expect(/* withTwoArguments(1, 2) */).toBe(2);
@@ -33,6 +44,7 @@ describe("Function basic", () => {
   });
 
   it("Should return string of wrapped arguments", () => {
+    
     expect(/* wrap("a", "b") */).toBe("|a|b|");
     expect(/* wrap("a", "b", "c", "d", "e") */).toBe("|a|b|c|d|e|");
   });
