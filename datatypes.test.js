@@ -4,9 +4,9 @@ describe("Data types", () => {
       let a=true;
       let b=false;
       expect(b).toBeFalsy();
-      expect(b).toBe("boolean");
+      expect(b).toBe(false);
       expect(a).toBeTruthy();
-      expect(a).toBe("boolean");
+      expect(a).toBe(true);
     });
 
     it("Should use different logical operators with 2 boolean operands", () => {
@@ -16,7 +16,7 @@ describe("Data types", () => {
       let useLogicalAnd = FALSE && TRUE;
       let useLogicalOr = FALSE || TRUE;
       let useLogicalNot= (!FALSE) && (!FALSE);
-      let useDoubleLogicalNot=!!TRUE;
+      let useDoubleLogicalNot=!TRUE;
 
       expect(useLogicalAnd).toBe(false);
       expect(useLogicalOr).toBe(true);
@@ -31,8 +31,8 @@ describe("Data types", () => {
       const d = true;
 
       let cond1 = (a || c) && d;
-      let cond2 = (b || c) &&a;
-      let cond3 = (a && b)||c;
+      let cond2 = (b || c) &&d;
+      let cond3 = !((a && b)||c);
       let cond4 = !d && !a && !c;
 
       expect(cond1).toBe(true);
@@ -45,13 +45,13 @@ describe("Data types", () => {
   describe("Number", () => {
     it("Should define different numbers", () => {
       let a=10;
-      let b=11001;
+      let b=Number.MAX_SAFE_INTEGER;
       let c=20.5;
       let d=-Infinity;
       let nan=NaN;
 
       expect(a).toBe(10);
-      expect(!Number.isFinite(b)).toBe(true);
+      expect(!Number.isFinite(b)).toBe(false);
       expect(c).toBeGreaterThan(20);
       expect(c).toBeLessThan(21);
       expect(d).toBeLessThan(0);
@@ -92,8 +92,7 @@ describe("Data types", () => {
       expect(Number("12.3")).toBe(12.3);
       expect(Number("")).toBe(0);
       expect(Number("0")).toBe(0);
-      expect(Number("0b11")).toBe(2833);
-      expect(Number("foo")).toBe();
+      expect(Number("foo")).toBe(NaN);
       expect(Number("Nan")).toBe(NaN);
       expect(Number("-Infinity")).toBe(Number.NEGATIVE_INFINITY);
     });
@@ -129,20 +128,20 @@ describe("Data types", () => {
       let undefinedVar=undefined; // Set undefined
       let someVar; // Do not define it!!!
 
-      expect(typeof(nullVar)).toBeNull(null);
-      expect(typeof(undefinedVar)).toBe(undefined);
-      expect(someVar).toBe(undefined);
-      expect(typeof(nullVar)).toBe("object");
-      expect(typeof(undefinedVar)).toBe("undefined");
+      expect(typeof nullVar).toBe("object");
+      expect(typeof undefinedVar).toBe("undefined");
+      expect(typeof someVar).toBe("undefined");
+      expect(typeof nullVar).toBe("object");
+      expect(typeof undefinedVar).toBe("undefined");
     });
 
     it("Should define 2 Symbol variable with the same description", () => {
       const smbl1 = Symbol("test");
       const smbl2 = Symbol("test");
 
-      expect(typeof smbl1).toBe(/* ??? */);
-      expect(typeof smbl2).toBe(/* ??? */);
-      expect(/* Compare smbl1 and smbl2  */).toBe(/* ??? */);
+      expect(typeof smbl1).toBe("symbol");
+      expect(typeof smbl2).toBe("symbol");
+      expect(smbl1==smbl2).toBe(false);
     });
   });
 });

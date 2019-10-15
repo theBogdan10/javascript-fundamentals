@@ -1,12 +1,14 @@
 describe("Function basic", () => {
   it("Should be function declarations", () => {
-    function foo(){};
-    expect(foo()).toBe("I am a function declarations");
+    function foo(){
+    };
+    expect().toBe();
   });
 
   it("Should be function expression", () => {
-    let f=function qwe(){};
-    expect(f).toBe("I am a function expression");
+    let f=function(){
+    };  
+    expect().toBe();
   });
 
   it("Should get sum of 2 numbers", () => {
@@ -20,27 +22,41 @@ describe("Function basic", () => {
 
   test("Should get arguments length", () => {
     // TODO: Declare 3 functions (withoutArguments, withOneArgument, withTwoArguments ) with different quantity of named arguments
-    function f1(){
-      
+    function withoutArguments(...args){
+      let tmp = 0;
+      for (let arg of args) tmp += 1;
+      return tmp;
     };
-    function f2(x);
-    function f3(y);
-
-    expect(/* withoutArguments() */).toBe(0);
-    expect(/* withOneArgument(1) */).toBe(1);
-    expect(/* withTwoArguments(1, 2) */).toBe(2);
-    expect(/* withTwoArguments(1) */).toBe(1);
-    expect(/* withoutArguments(1, 2, 3, 4, 5) */).toBe(5);
+    function withOneArgument(...args){
+      let tmp = 0;
+      for (let arg of args) tmp += 1;
+      return tmp;
+    };
+    function withTwoArguments(...args){
+      let tmp = 0;
+      for (let arg of args) tmp += 1;
+      return tmp;
+   
+    };
+  
+    expect(withoutArguments()).toBe(0);
+    expect(withOneArgument(1)).toBe(1);
+    expect(withTwoArguments(1, 2)).toBe(2);
+    expect(withTwoArguments(1)).toBe(1);
+    expect(withoutArguments(1, 2, 3, 4, 5)).toBe(5);
   });
 
   test("Should find argument at N position", () => {
     // Write function fn. First argument should be position (N) of argument
-    expect(/* fn(1) */).toBe(undefined);
-    expect(/* fn(1, "a") */).toBe("a");
-    expect(/* fn(3, "a", "b") */).toBe(undefined);
-    expect(/* fn(1, "a", "b", "c") */).toBe("a");
-    expect(/* fn(2, "a", "b", "c") */).toBe("b");
-    expect(/* fn(3, "a", "b", "c") */).toBe("c");
+    function fn(){
+
+    }
+    expect(fn(1)).toBe(undefined);
+    expect(fn(1, "a")).toBe("a");
+    expect(fn(3, "a", "b")).toBe(undefined);
+    expect(fn(1, "a", "b", "c")).toBe("a");
+    expect(fn(2, "a", "b", "c")).toBe("b");
+    expect(fn(3, "a", "b", "c")).toBe("c");
   });
 
   it("Should return string of wrapped arguments", () => {
@@ -54,6 +70,9 @@ describe("Function basic", () => {
     // First is calculation function
     // Second is argument for calculation function
     // Return value is message 'Result is ###'
+    function logCalculationResult(add10,a){
+      return "Result is "+add10(a);
+    }
 
     function add10(a) {
       return a + 10;
@@ -63,7 +82,7 @@ describe("Function basic", () => {
       return a * 3;
     }
 
-    expect(/* logCalculationResult(add10, 7) */).toBe("Result is 17");
-    expect(/* logCalculationResult(mul3, 7) */).toBe("Result is 21");
+    expect(logCalculationResult(add10, 7)).toBe("Result is 17");
+    expect(logCalculationResult(mul3, 7)).toBe("Result is 21");
   });
 });

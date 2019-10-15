@@ -47,7 +47,7 @@ describe("Numbers", () => {
     expect(isPrime(4)).toBe(false);
 
     // TODO: Write additional tests
-    expect(isPrime(3)).toBe(false);
+    expect(isPrime(3)).toBe(true);
     expect(isPrime(0)).toBe(false);
   });
 
@@ -67,7 +67,7 @@ describe("Numbers", () => {
       let m=[a,b,c,d,e];
       max=m[0];
       for (let i=1;i<m.length;i++){
-        if (m[i]>m[0]){
+        if (m[i]>max){
           max=m[i];
         }
       }
@@ -85,7 +85,7 @@ describe("Numbers", () => {
       let m=[a,b,c,d,e];
       min=m[0];
       for (let i=1;i<m.length;i++){
-        if (m[i]<m[0]){
+        if (m[i]<min){
           min=m[i];
         }
       }
@@ -117,23 +117,27 @@ describe("Numbers", () => {
     function f2(a){
       ////DO THIS !
     }
-    expect(r(1)).toBe(1);
-    expect(r(1.2)).toBe(1);
-    expect(r(1.8)).toBe(1);
+    expect(f(1)).toBe(1);
+    expect(f(1.2)).toBe(1);
+    expect(f(1.8)).toBe(1); 
 
     // TODO: Write additional tests
+    expect(f(3.1)).toBe(3);
+    expect(f(4.8)).toBe(4);
   });
 
   test("Should return the base10 representation of a binary string", function() {
     function foo(a){
-      
-      return parseInt(a,10);
+      return parseInt(a,2);
     }
-    expect(foo(11000000)).toBe(192);
+    expect(foo('11000000')).toBe(192);
   });
 
   test("Should convert an eight-bit string number to a binary string", function() {
-    expect(/* ??? 127 */).toBe("1010111");
-    expect(/* ??? 65 */).toBe("110101");
-  });
+    function foo2(a){
+      return parseInt(a,8);
+    }
+    expect(foo2('127')).toBe(87);
+    expect(foo2('65')).toBe(53);
+  }); 
 });
