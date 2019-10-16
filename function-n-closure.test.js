@@ -3,12 +3,15 @@ describe('', () => {
     function add5(x) {
       return x + 5;
     }
-
     function mul3(x) {
       return x * 3;
     }
-
-    expect(/* compose(  add5, mul3)(2) */).toBe(add5(mul3(2)));
+    function compose(add5,mul3){
+      return function(a){
+        return add5(mul3(a));
+      }
+    }
+    expect(compose(  add5, mul3)(2)).toBe(add5(mul3(2)));
   });
 
   test('Should create new user with unique number identifier using increment', () => {

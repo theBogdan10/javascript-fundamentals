@@ -3,29 +3,40 @@ describe("Strings", () => {
     // TODO: write 2 function with different way for join string
     function combine1(s,s1){
       
-      return s+s1;
+      return s+" "+s1;
+    }
+    function combine2(s,s1){
+      return s.concat(" ",s1);
     }
     expect(combine1("hello", "world")).toBe("hello world");
     expect(combine2("hello", "world")).toBe("hello world");
   });
 
   it("Should get string length", () => {
-    expect(/* getLength("") */).toBe(0);
-    expect(/* getLength("word") */).toBe(4);
+    function getLength(s){
+      return s.length;
+    }
+    expect(getLength("")).toBe(0);
+    expect(getLength("word")).toBe(4);
   });
 
   it("Should create greeting message from template", () => {
-    expect(/* greeting("Ivan") */).toBe("Hello, Ivan!");
+    function greeting(name){
+      return "Hello, "+name+"!";
+    }
+    expect(greeting("Ivan")).toBe("Hello, Ivan!");
   });
 
   it("Should strip leading and trailing spaces from a string", () => {
-    expect(/* ??? ' aaaa bbb   ' */).toBe("aaaa bbb");
+    function foo(s){
+      return s.trim();
+    }
+    expect(foo(' aaaa bbb   ')).toBe("aaaa bbb");
   });
 
   it("Replace all word occurence in the sentences", () => {
-    expect(/*  ??? 'aaa bbb ccc aaa  bb', 'aaa', 'eeeee' */).toBe(
-      "eeeee bbb ccc eeeee bb"
-    );
+    
+    expect(/*  ??? 'aaa bbb ccc aaa  bb', 'aaa', 'eeeee' */).toBe("eeeee bbb ccc eeeee bb");
   });
 
   it("Should validate string length", () => {
