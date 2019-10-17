@@ -9,12 +9,8 @@ describe('THIS', () => {
       return this.msg + ' ' + this.msg;
     }
 
-    function foo(a,b){
-     
-      return this.msg + ' ' + this.msg;
-    }
-    expect().toBe('aaa aaa');
-    expect().toBe('bbb bbb');
+    expect(example.call(a)).toBe('aaa aaa');
+    expect(example.call(b)).toBe('bbb bbb');
   });
 
   it('Should create function  connected with specific this', () => {
@@ -27,8 +23,8 @@ describe('THIS', () => {
     const bob = { name: 'Bob', get: 50 };
 
     // TODO: fix
-    const getTomName = fn(tom.name);
-    const getBobName = fn(bob.name);
+    const getTomName = ()=>fn.call(tom);
+    const getBobName = ()=>fn.call(bob);
 
     expect(getTomName()).toBe('Tom');
     expect(getBobName()).toBe('Bob');
@@ -47,7 +43,7 @@ describe('THIS', () => {
     };
 
     // TODO: FIX ME
-    const sayHello = person.sayHello;
+    const sayHello = ()=>person.sayHello.call(person);
 
     expect(sayHello()).toBe(person.sayHello());
   });

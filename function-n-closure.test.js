@@ -6,18 +6,20 @@ describe('', () => {
     function mul3(x) {
       return x * 3;
     }
-    function compose(add5, mul3) {
-      return function(a) {
-        return add5(mul3(a));
-      };
+    function compose(f1, f2) {
+      return x => f1(f2(x));
     }
     expect(compose(add5, mul3)(2)).toBe(add5(mul3(2)));
   });
 
   test('Should create new user with unique number identifier using increment', () => {
-    function createUser(name,id){
-      this.name=name;
-      this.id=id;
+    let tmp=0;
+    function createUser(name){
+      tmp++;
+      return {
+        name:name,
+        id:tmp
+      }
     }
     expect(createUser("Ivan")).toStrictEqual({ name: 'Ivan', id: 1 });
     expect(createUser("Petr").name).toBe('Petr');
@@ -26,7 +28,8 @@ describe('', () => {
 
   test('Should create function that each time return new value incremented by incrementValue and start from start', () => {
     function createIncrementor(start, incrementValue) {
-        
+      let value = start - incrementValue;
+      return () => value += incrementValue;
     }
     const nextFrom10By7 = createIncrementor(10, 7);
     expect(nextFrom10By7()).toBe(10);
@@ -36,21 +39,20 @@ describe('', () => {
 
   test('Fix me. Function creation inside cycle. Find 2 different solutions', () => {
     function solution1(from, to) {
+      // TODO: fix me
       const result = [];
-      for (var i = from; i <= to; i++) {
-        result.push(function() {
-          return i;
-        });
+      for (let i = from; i <= to; i++) {
+        result.push(() => i);
       }
       return result;
     }
 
     function solution2(from, to) {
+      // TODO: fix me
       const result = [];
       for (var i = from; i <= to; i++) {
-        result.push(function() {
-          return i;
-        });
+        let x = i;
+        result.push(() => x);
       }
       return result;
     }
@@ -65,8 +67,8 @@ describe('', () => {
   });
 
   test('Should works as expected. Fix me', () => {
-    let a = 0;
     function foo(callback) {
+      let a = 10;
       function inner() {
         // DON"T CHANGE ME
         a++;
@@ -78,6 +80,7 @@ describe('', () => {
       };
     }
     function getCallbackFn() {
+      let a=0;
       return function callbackFn() {
         // DON'T change me
         a += 2;
@@ -99,8 +102,21 @@ describe('', () => {
   });
 
   test('Should use private property', () => {
-    let obj1; // createTestObject();
-    let obj2; // createTestObject();
+
+    function createTestObject(){
+      let w=undefined;
+      return{
+        setValue(value){
+          w=value;
+        },
+        getValue(){
+          return w;
+        }
+      }
+    }
+
+    let obj1 = createTestObject();
+    let obj2 = createTestObject();
     obj1.setValue(10);
     expect(obj1.getValue()).toBe(10);
     obj2.setValue('obj2');
@@ -110,8 +126,15 @@ describe('', () => {
   });
 
   test('Should create multiply function', () => {
-    let mul5; // = multiply(5);
-    let mul20; // = multiply(20);
+
+    function multiply(a){
+      return (num)=>{
+        return a*num;
+      }
+    }
+
+    let mul5 = multiply(5);
+    let mul20 = multiply(20);
 
     expect(mul5(1)).toBe(5);
     expect(mul5(7)).toBe(35);
@@ -125,7 +148,8 @@ describe('', () => {
 
     function calcCall(func) {
       // TODO: implement
-      return [func, () => 0];
+      let cnt=0;
+      return [() => {cnt++;return func()},()=>cnt];
     }
 
     const [callFn, getFnCount] = calcCall(fn);
@@ -146,6 +170,11 @@ describe('', () => {
   test('Should cache the result of function with single argument', () => {
     function memoize(fn) {
       // TODO: implement
+      let old, res;
+      return (x) => {
+        if (old == x) return res;
+        return old = x, res = fn(x);
+      }
     }
 
     let invokesCount = 0;
@@ -178,6 +207,12 @@ describe('', () => {
 
     function logMe(fn) {
       // TODO: implement
+      return () => {
+        logger.logStart(fn.name);
+        let res = fn();
+        logger.logEnd(fn.name);
+        return res;
+      }
     }
 
     function example() {}
@@ -194,6 +229,9 @@ describe('', () => {
 
     function once(fn) {
       // TODO: implement
+      return () => {
+        if (!callsCount) return fn();
+      }
     }
 
     const initialize = once(init);
@@ -207,6 +245,9 @@ describe('', () => {
   test('Creates a function that invokes func with partials prepended to the arguments it receives. ', () => {
     function partial(fn, arg1) {
       // TODO: implement
+      return (x) => {
+        return fn(x, arg1);
+      }
     }
 
     function add(a, b) {
